@@ -1,0 +1,45 @@
+# Python bytecode files
+__pycache__/
+*.pyc
+*.pyo
+*.pyd
+
+# Virtual environment
+venv/
+env/
+.venv/
+
+# Dependency directories
+pip-log.txt
+pip-delete-this-directory.txt
+
+# FastAPI / Uvicorn logs
+*.log
+
+# Database
+*.sqlite3
+*.db
+
+# IDE / Editor settings
+.vscode/
+.idea/
+
+# PyCharm specific
+.idea/
+
+# Jupyter Notebooks
+.ipynb_checkpoints/
+
+# Test coverage reports
+.coverage
+.coverage.*
+
+# mypy
+.mypy_cache/
+
+# VS Code settings
+.vscode/
+
+# Local environment variables
+.env
+.env.*

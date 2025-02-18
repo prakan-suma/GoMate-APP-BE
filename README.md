@@ -43,7 +43,7 @@ Follow these steps to set up the **Gomate** backend:
 
 ```bash
 git clone https://github.com/prakan-suma/GoMate-APP-BE.git
-cd GoMate-APP-BE
+cd gomate-backend
 ```
 
 ### 2. Create a Virtual Environment
@@ -77,9 +77,14 @@ pip install -r requirements.txt
 
 Edit the `app/database/database.py` file to set your database URL. For development, you can use SQLite, or for production, configure a MySQL database.
 
+Example for SQLite:
+```python
+DATABASE_URL = "sqlite:///./test.db"
+```
+
 Example for MySQL:
 ```python
-DATABASE_URL = "mysql://user:password@localhost/gomate_db"
+DATABASE_URL = "mysql+pymysql://username:password@localhost/gomate_db"
 ```
 
 ### 5. Run the Application
@@ -149,6 +154,7 @@ gomate-backend/
 │   ├── config.py                  # Configuration settings (e.g., DB URL)
 │
 ├── requirements.txt               # List of dependencies
+├── .gitignore                     # List of files to be ignored by git
 └── README.md                      # Project description
 ```
 
@@ -159,6 +165,4 @@ Feel free to fork the repository and submit pull requests with bug fixes, new fe
 ## License
 
 This project is licensed under the MIT License - see the [LICENSE](LICENSE) file for details.
-
----
 
