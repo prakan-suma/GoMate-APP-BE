@@ -42,8 +42,8 @@ Follow these steps to set up the **Gomate** backend:
 ### 1. Clone the repository
 
 ```bash
-git clone https://github.com/yourusername/gomate-backend.git
-cd gomate-backend
+git clone https://github.com/prakan-suma/GoMate-APP-BE.git
+cd GoMate-APP-BE
 ```
 
 ### 2. Create a Virtual Environment
@@ -77,11 +77,6 @@ pip install -r requirements.txt
 
 Edit the `app/database/database.py` file to set your database URL. For development, you can use SQLite, or for production, configure a MySQL database.
 
-Example for SQLite:
-```python
-DATABASE_URL = "sqlite:///./test.db"
-```
-
 Example for MySQL:
 ```python
 DATABASE_URL = "mysql://user:password@localhost/gomate_db"
@@ -92,7 +87,7 @@ DATABASE_URL = "mysql://user:password@localhost/gomate_db"
 Run the FastAPI application with Uvicorn:
 
 ```bash
-uvicorn app.main:app --reload
+uvicorn main:app --reload
 ```
 
 This will start the application at `http://127.0.0.1:8000`.
