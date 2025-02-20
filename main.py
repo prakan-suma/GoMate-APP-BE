@@ -1,7 +1,7 @@
 from fastapi import FastAPI
+from routers import trip
 
 app = FastAPI()
 
-@app.get("/")
-async def read_root():
-    return {"message": "Hello, World!"}
+# รวม router ที่สร้างขึ้น
+app.include_router(trip.router)
