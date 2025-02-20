@@ -22,3 +22,32 @@ def get_db():
         yield db
     finally:
         db.close()
+
+
+
+
+
+
+
+
+from sqlalchemy.orm import Session
+from models import User
+
+def create_user(db: Session, name: str, email: str, password: str, phone_number: str, role: str):
+    db_user = User(name=name, email=email, password=password, phone_number=phone_number, role=role)
+    db.add(db_user)
+    db.commit()
+    db.refresh(db_user)  # อัพเดทค่าใน db_user
+    return db_user
+
+
+from sqlalchemy import text
+from sqlalchemy.orm import Session
+
+def create_user_raw(db: Session, name: str, email: str, password: str, phone_number: str, role: str):
+    sql = """
+        INSERT INTO users (name, email, password, phone_number, role)
+        VALUES (:name, :email, :password, :phone_number, :role)
+    """
+    db.execute(text(sql), {'name': name, 'email': email, 'password': password, 'phone_number': phone_number, 'role': role})
+    db.commit()
