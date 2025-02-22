@@ -24,22 +24,45 @@ def create_booking(db: Session, booking: BookingCreate):
 
     # Return the response in the correct format
     return {
-        "id": db_booking.id,  # Use id instead of booking_id
-        "trip_id": db_booking.trip_id,
-        "passenger_id": db_booking.passenger_id,
-        "status": db_booking.status,
-        "booked_at": db_booking.booked_at,
+        "booking_id": db_booking.id,  # Use booking_id instead of id
         "message": "Booking created successfully"
     }
 
 def get_booking(db: Session, booking_id: int):
-    return db.query(Booking).filter(Booking.id == booking_id).first()
+    booking = db.query(Booking).filter(Booking.id == booking_id).first()
+    if not booking:
+        return None
+    
+    # Format the booking to match the desired response
+    formatted_booking = {
+        "booking_id": booking.id,
+        "trip_id": booking.trip_id,
+        "passenger_id": booking.passenger_id,
+        "status": booking.status,
+        "booked_at": booking.booked_at.isoformat() if booking.booked_at else None
+    }
+    
+    return formatted_booking
 
 def get_all_bookings(db: Session, user_id: int = None, skip: int = 0, limit: int = 10):
     query = db.query(Booking)
     if user_id:
         query = query.filter((Booking.passenger_id == user_id) | (Booking.trip.has(driver_id=user_id)))
-    return query.offset(skip).limit(limit).all()
+    bookings = query.offset(skip).limit(limit).all()
+    
+    # Format the bookings to match the desired response
+    formatted_bookings = [
+        {
+            "booking_id": booking.id,
+            "trip_id": booking.trip_id,
+            "passenger_id": booking.passenger_id,
+            "status": booking.status,
+            "booked_at": booking.booked_at.isoformat() if booking.booked_at else None
+        }
+        for booking in bookings
+    ]
+    
+    return {"bookings": formatted_bookings}
 
 def update_booking_status(db: Session, booking_id: int, status: str):
     # Fetch the booking
@@ -52,8 +75,10 @@ def update_booking_status(db: Session, booking_id: int, status: str):
     db.commit()
     db.refresh(db_booking)
 
-    # Return the updated booking
-    return db_booking
+    # Return the response in the correct format
+    return {
+        "message": "Booking status updated successfully"
+    }
 
 def cancel_booking(db: Session, booking_id: int):
     db_booking = db.query(Booking).filter(Booking.id == booking_id).first()
