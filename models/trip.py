@@ -22,6 +22,7 @@ class Trip(Base):
     fare = Column(DECIMAL(10, 2), nullable=False)
     status = Column(Enum(TripStatusEnum), nullable=False)
     created_at = Column(TIMESTAMP, server_default=func.now())
+    
     reports = relationship("Report", back_populates="trip") 
     driver = relationship("User", back_populates="trips")
     bookings = relationship("Booking", back_populates="trip")
