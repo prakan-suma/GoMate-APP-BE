@@ -1,7 +1,7 @@
 from fastapi import FastAPI
-from routers import trip
+from routers import trip, live_tracking
 
 app = FastAPI()
 
-# รวม router ที่สร้างขึ้น
 app.include_router(trip.router)
+app.include_router(live_tracking.router)
