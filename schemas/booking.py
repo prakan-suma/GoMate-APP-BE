@@ -5,12 +5,12 @@ from typing import Optional
 
 class BookingBase(BaseModel):
     trip_id: int
-    user_id: int
+    passenger_id: int
 
 
 class BookingCreate(BaseModel):
     trip_id: int
-    user_id: int
+    passenger_id: int
 
 
 class BookingUpdate(BaseModel):

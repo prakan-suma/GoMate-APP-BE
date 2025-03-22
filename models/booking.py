@@ -16,11 +16,12 @@ class Booking(Base):
 
     id = Column(Integer, primary_key=True, autoincrement=True)
     trip_id = Column(Integer, ForeignKey("trips.id"), nullable=False)
-    user_id = Column(Integer, ForeignKey("users.id"), nullable=False)
+    passenger_id = Column(Integer, ForeignKey("users.id"), nullable=False)
     status = Column(
         SQLEnum(BookingStatus), default=BookingStatus.pending, nullable=False
     )
     created_at = Column(TIMESTAMP, server_default=func.now())
 
+    payments = relationship("Payment", back_populates="bookings")
     trip = relationship("Trip", back_populates="bookings")
-    user = relationship("User", back_populates="bookings")
+    passenger = relationship("User", back_populates="bookings")

@@ -17,4 +17,4 @@ class Payment(Base):
     status = Column(Enum(PaymentStatusEnum), nullable=False)
     paid_at = Column(TIMESTAMP)
 
-    booking = relationship("Booking", back_populates="payments")
+    bookings = relationship("Booking", back_populates="payments")

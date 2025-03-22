@@ -13,7 +13,6 @@ from schemas.booking import BookingCreate, BookingUpdate, BookingResponse
 
 router = APIRouter(prefix="/v1/booking", tags=["booking"])
 
-
 @router.post("/", response_model=BookingResponse)
 def create_booking_view(booking_data: BookingCreate, db: Session = Depends(get_db)):
     return create_booking(db, booking_data)
@@ -42,11 +41,11 @@ def update_booking_view(
     updated_booking = update_booking(db, booking_id, booking_data)
     if not updated_booking:
         raise HTTPException(status_code=404, detail="Booking not found")
-    return updated_booking
+    return {"message": "Booking updated successfully"}
 
 
 @router.delete("/{booking_id}")
 def delete_booking_view(booking_id: int, db: Session = Depends(get_db)):
     if not delete_booking(db, booking_id):
         raise HTTPException(status_code=404, detail="Booking not found")
-    return {"message": "Booking deleted successfully"}
+    return {'message': 'Booking deleted successfully'}
