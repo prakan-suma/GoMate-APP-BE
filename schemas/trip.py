@@ -15,17 +15,14 @@ class DriverDocumentOut(BaseModel):
     vehicle_brand: str
     vehicle_model: str
     vehicle_color: str
-    document_status: str
     
 class UserOut(BaseModel):
-    id: int
     name: str
     email: str
     phone: str
     profile_pic: Optional[str]
     is_driver_active: bool
-    created_at: datetime
-    driver_documents: Optional[list[DriverDocumentOut]] 
+    driver_documents: Optional[DriverDocumentOut] 
 
 
 class TripBase(BaseModel):
@@ -52,5 +49,5 @@ class TripOut(TripBase):
     created_at: datetime
 
     class Config:
-        orm_mode = True
+        from_attributes = True
         from_attributes = True

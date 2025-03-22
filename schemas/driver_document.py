@@ -15,9 +15,6 @@ class DriverDocumentCreate(DriverDocumentBase):
 class DriverDocumentUpdate(BaseModel):
     document_status: str
 
-from pydantic import BaseModel
-from datetime import datetime
-
 class DriverDocumentOut(BaseModel):
     id: int
     user_id: int
@@ -30,4 +27,4 @@ class DriverDocumentOut(BaseModel):
     created_at: datetime
 
     class Config:
-        orm_mode = True
+        from_attributes = True

@@ -45,25 +45,21 @@ def update_driver_document(db: Session, document_id: int, document: DriverDocume
         "message": "Driver document updated successfully",
         "document_id": db_document.id
     }
+
 def get_driver_document(db: Session, document_id: int):
-    document = db.query(DriverDocument).filter(DriverDocument.id == document_id).first()
-    if not document:
-        return None
+    db_document = db.query(DriverDocument).filter(DriverDocument.id == document_id).first()
+    if not db_document:
+        raise HTTPException(status_code=404, detail="Driver document not found")
 
-    # Format the response
-    formatted_document = {
-        "document_id": document.id,
-        "user_id": document.user_id,
-        "license_number": document.license_number,
-        "vehicle_registration": document.vehicle_registration,
-        "vehicle_brand": document.vehicle_brand,
-        "vehicle_model": document.vehicle_model,
-        "vehicle_color": document.vehicle_color,
-        "document_status": document.document_status,
-        "created_at": document.created_at.isoformat() if document.created_at else None
-    }
+    return db_document
 
-    return formatted_document
+def get_driver_documents_by_driver_id(db: Session, driver_id: int):
+    db_document = db.query(DriverDocument).filter(DriverDocument.user_id == driver_id).all()
+    
+    if not db_document:
+        raise HTTPException(status_code=404, detail="Driver document not found")
+    
+    return db_document
 
 def get_driver_documents(db: Session, skip: int = 0, limit: int = 10):
     return db.query(DriverDocument).offset(skip).limit(limit).all()
