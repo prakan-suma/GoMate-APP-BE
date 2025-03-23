@@ -1,3 +1,4 @@
+from fastapi import HTTPException
 from sqlalchemy.orm import Session, joinedload
 from models.trip import Trip
 from models.user import User
@@ -13,14 +14,18 @@ def create_trip(db: Session, trip: TripCreate):
     return db_trip
 
 
-def update_trip(db: Session, trip_id: int, trip: TripUpdate):
+def update_trip(db: Session, trip_id: int, trip: TripCreate):
     db_trip = db.query(Trip).filter(Trip.id == trip_id).first()
     if db_trip:
         for key, value in trip.dict(exclude_unset=True).items():
             setattr(db_trip, key, value)
         db.commit()
         db.refresh(db_trip)
-    return db_trip
+        
+    if db_trip is None:
+        return HTTPException(status_code=404, detail="Update failed")
+    
+    return {"message": "Trip update"}
 
 
 def get_trips_by_user_ids(db: Session, user_ids: list[int], skip: int = 0, limit: int = 10):

@@ -54,7 +54,7 @@ class TripCreate(TripBase):
 
 
 class TripUpdate(TripBase):
-    status: TripStatus
+    pass
 
 class TripOut(TripBase):
     id: int

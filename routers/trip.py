@@ -35,7 +35,7 @@ def create_trip_view(trip: TripCreate, db: Session = Depends(get_db)):
     return create_trip_service(db=db, trip=trip)
 
 
-@router.put("/{trip_id}", response_model=TripOut)
+@router.put("/{trip_id}", response_model=dict)
 def update_trip_view(trip_id: int, trip: TripUpdate, db: Session = Depends(get_db)):
     return update_trip_service(db=db, trip_id=trip_id, trip=trip)
 
