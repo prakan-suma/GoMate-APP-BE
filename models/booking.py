@@ -20,6 +20,7 @@ class Booking(Base):
     status = Column(
         SQLEnum(BookingStatus), default=BookingStatus.pending, nullable=False
     )
+    amount = Column(Integer, nullable=False)
     created_at = Column(TIMESTAMP, server_default=func.now())
 
     payments = relationship("Payment", back_populates="bookings")

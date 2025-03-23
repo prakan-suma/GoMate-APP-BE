@@ -1,11 +1,10 @@
-from sqlalchemy import Column, Integer, String, ForeignKey, DateTime, Enum, DECIMAL, TIMESTAMP
+from sqlalchemy import Column, Integer, String, ForeignKey, DateTime, Enum, DECIMAL, TIMESTAMP, Float
 from sqlalchemy.orm import relationship
 from database.session import Base
 from sqlalchemy.sql import func
 import enum
 
 class TripStatusEnum(enum.Enum):
-    scheduled = "scheduled"
     ongoing = "ongoing"
     completed = "completed"
     canceled = "canceled"
@@ -17,6 +16,8 @@ class Trip(Base):
     driver_id = Column(Integer, ForeignKey("users.id"), nullable=False)
     origin = Column(String(255), nullable=False)
     destination = Column(String(255), nullable=False)
+    latitude_des = Column(Float, nullable=False)
+    longitude_des = Column(Float, nullable=False)
     departure_time = Column(DateTime, nullable=False)
     available_seats = Column(Integer, nullable=False)
     fare = Column(DECIMAL(10, 2), nullable=False)

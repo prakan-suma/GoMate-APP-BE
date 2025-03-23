@@ -6,11 +6,13 @@ from typing import Optional
 class BookingBase(BaseModel):
     trip_id: int
     passenger_id: int
+    amount: int
 
 
 class BookingCreate(BaseModel):
     trip_id: int
     passenger_id: int
+    amount: int
 
 
 class BookingUpdate(BaseModel):
@@ -23,5 +25,4 @@ class BookingResponse(BookingBase):
     created_at: datetime
 
     class Config:
-        from_attributes = True
         from_attributes = True

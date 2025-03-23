@@ -1,6 +1,7 @@
 from sqlalchemy.orm import Session, joinedload
 from models.trip import Trip
 from models.user import User
+from models.booking import Booking
 from schemas.trip import TripCreate, TripUpdate
 
 
@@ -25,7 +26,7 @@ def update_trip(db: Session, trip_id: int, trip: TripUpdate):
 def get_trips_by_user_ids(db: Session, user_ids: list[int], skip: int = 0, limit: int = 10):
     trips = (
         db.query(Trip)
-        .options(joinedload(Trip.driver).joinedload(User.driver_documents))
+        .options(joinedload(Trip.driver).joinedload(User.driver_documents),joinedload(Trip.bookings).joinedload(Booking.passenger))
         .filter(Trip.driver_id.in_(user_ids))
         .offset(skip)
         .limit(limit)
@@ -37,9 +38,10 @@ def get_trips_by_user_ids(db: Session, user_ids: list[int], skip: int = 0, limit
 
 def get_trip_details(db: Session, trip_id: int):
     trip = db.query(Trip).options(
-        joinedload(Trip.driver).joinedload(User.driver_documents)
+        joinedload(Trip.driver).joinedload(User.driver_documents),
+        joinedload(Trip.bookings).joinedload(Booking.passenger),
     ).filter(Trip.id == trip_id).first()
-
+    
     if not trip:
         return None
 
