@@ -9,8 +9,9 @@ steps:
   
   # Step 3: Deploy to Cloud Run
   - name: 'gcr.io/google.com/cloudsdktool/cloud-sdk:latest'
+    entrypoint: 'gcloud'  
     args:
-      - 'gcloud'
+      - 'run'
       - 'deploy'
       - 'gomate-backend'
       - '--image'
