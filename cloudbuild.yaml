@@ -1,0 +1,29 @@
+steps:
+  # Step 1: Build the Docker image
+  - name: 'gcr.io/cloud-builders/docker'
+    args: ['build', '-t', 'gcr.io/northern-net-450607-p0/gomate-backend', '.']
+  
+  # Step 2: Push the image to Artifact Registry
+  - name: 'gcr.io/cloud-builders/docker'
+    args: ['push', 'gcr.io/northern-net-450607-p0/gomate-backend']
+  
+  # Step 3: Deploy to Cloud Run
+  - name: 'gcr.io/google.com/cloudsdktool/gcloud'
+    args:
+      - 'run'
+      - 'deploy'
+      - 'gomate-backend'
+      - '--image'
+      - 'gcr.io/northern-net-450607-p0/gomate-backend'
+      - '--region'
+      - 'asia-southeast1'
+      - '--platform'
+      - 'managed'
+      - '--allow-unauthenticated'
+      - '--set-env-vars'
+      - 'REDIS_HOST=10.46.142.203,REDIS_PORT=6379'
+
+# Define where to store the built image
+images:
+  - 'gcr.io/northern-net-450607-p0/gomate-backend'
+logsBucket: 'gs://gomate-build-logs'
