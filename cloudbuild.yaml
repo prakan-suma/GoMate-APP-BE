@@ -16,12 +16,12 @@ steps:
       - '--image'
       - 'gcr.io/northern-net-450607-p0/gomate-backend'
       - '--region'
-      - 'asia-southeast1'
+      - 'us-central1'
       - '--platform'
       - 'managed'
       - '--allow-unauthenticated'
       - '--set-env-vars'
-      - 'REDIS_HOST=10.46.142.203,REDIS_PORT=6379'
+      - 'REDIS_HOST=10.225.48.187,REDIS_PORT=6379'
 
 # Define where to store the built image
 images:
