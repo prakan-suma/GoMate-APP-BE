@@ -8,7 +8,7 @@ steps:
     args: ['push', 'gcr.io/northern-net-450607-p0/gomate-backend']
   
   # Step 3: Deploy to Cloud Run
-  - name: 'gcr.io/google.com/cloudsdktool/gcloud'
+  - name: 'gcr.io/google.com/cloudsdktool/cloud-sdk:latest'
     args:
       - 'run'
       - 'deploy'
