@@ -26,3 +26,4 @@ steps:
 # Define where to store the built image
 images:
   - 'gcr.io/northern-net-450607-p0/gomate-backend'
+logsBucket: 'gs://gomate-build-logs'
